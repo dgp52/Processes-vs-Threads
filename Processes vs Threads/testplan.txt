@@ -1,0 +1,170 @@
+Name: Viraj Patel, NetID: vjp60
+Name: Deepkumar Patel, NetID: dgp52
+
+==========Part 1: Threads: How they were tested?==========
+
+Step1: gcc -Wall -pthread compressT_LOLS.c -o compressT_LOLS
+Step2: ./compressT_LOLS fileToTest.txt 2
+Note: The last argument or the number of parts can be any number.
+
+==========Part 2: Processes: How they were tested?==========
+
+Step1: gcc -Wall compressR_worker_LOLS.c -o compressR_worker_LOLS
+Step2: gcc -Wall compressR_LOLS.c -o compressR_LOLS
+Step3: ./compressR_LOLS fileToTest.txt 1
+Note: It is very important to name the output file "compressR_worker_LOLS" in step 1.
+
+==========Important Note==========
+
+Below are the testcases that were ran on both threads and processes and the output were same.
+Therefore, we only included threads result. However, we have included an error test case for 
+process.
+
+==========Simple test cases for threads==========
+
+Arguments: ./compressT_LOLS testFile.txt 1
+testFile.txt: jjjjjjjjoooaaaaanrr
+testFile_txt_LOLS.txt: 8j3o5anrr
+
+Arguments: ./compressT_LOLS testFile.txt 2
+testFile.txt: jjjjjjjjoooaaaaanrr
+testFile_txt_LOLS0.txt: 8joo
+testFile_txt_LOLS1.txt: o5anrr
+
+Arguments: ./compressT_LOLS testFile.txt 2
+testFile.txt: hhhhhhhiiiiii
+testFile_txt_LOLS0.txt: 7h
+testFile_txt_LOLS1.txt: 6i
+
+Arguments: ./compressT_LOLS testFile.txt 3
+testFile.txt: hhhhhhhiiiiii
+testFile_txt_LOLS0.txt: 5h
+testFile_txt_LOLS1.txt: hhii
+testFile_txt_LOLS2.txt: 4i
+
+Arguments: ./compressT_LOLS testFile.txt 2 
+testFile.txt: oooo
+testFile_txt_LOLS0.txt: oo
+testFile_txt_LOLS1.txt: oo
+
+Arguments:./compressT_LOLS testFile.txt 1
+testFile.txt: oooo
+testFile_txt_LOLS.txt: 4o
+
+Arguments: ./compressT_LOLS testFile.txt 2
+testFile.txt: dddddddeeeeeeeeeeeeeeeeeeepppppppppppvvvvvvvvviiiiiiiirrrrraaaaaaaajjjjjj
+testFile_txt_LOLS0.txt: 7d19e11p
+testFile_txt_LOLS1.txt: 9v8i5r8a6j
+
+Arguments: ./compressT_LOLS testFile.txt 4
+testFile.txt: dddddddeeeeeeeeeeeeeeeeeeepppppppppppvvvvvvvvviiiiiiiirrrrraaaaaaaajjjjjjfffffffffkdjfkdjfkjfdkjfdkfjjjjjjjjjjlllllllmmmmmmmmmmmmmmmmmrrrrrrrrrrrrrrrrrllllllllllloooooooooooooowwwwwwwwwwwwwwwwwqqqqqqqqqqqz
+testFile_txt_LOLS0.txt: 7d19e11p9v6i
+testFile_txt_LOLS1.txt: ii5r8a6j9fkdjfkdjfkjfdkjfdkf3j
+testFile_txt_LOLS2.txt: 7j7l17m17r3l
+testFile_txt_LOLS3.txt: 8l14o17w11qz
+
+Arguments: ./compressT_LOLS testFile.txt 10
+testFile.txt: This file contained 100,000 words in it.
+testFile_txt_LOLS.txt:
+
+==========Test cases for threads including spaces==========
+
+Arguments: ./compressT_LOLS testFile.txt 1
+testFile.txt:           a
+testFile_txt_LOLS.txt: a
+
+Arguments: ./compressT_LOLS testFile.txt 1
+testFile.txt: aa  aaa aaaaa    aaaaa
+testFile_txt_LOLS.txt: 15a
+
+Arguments: ./compressT_LOLS testFile.txt 2
+testFile.txt: aa  aaa aaaaa    aaaaa
+testFile_txt_LOLS0.txt: 8a
+testFile_txt_LOLS1.txt: 7a
+
+Arguments: ./compressT_LOLS testFile.txt 1
+testFile.txt: aa  aaa aaaaa    aaaaa bbbbb bb nnnn   mmmmm nnnn nnnnn
+testFile_txt_LOLS.txt: 15a7b4n5m9n
+
+==========Test cases for threads including spaces and multiplelines break==========
+
+Arguments: ./compressT_LOLS testFile.txt 1
+testFile.txt:
+aaaa aa
+aaaa    bbbb
+testFile_txt_LOLS.txt: 10a4b
+
+Arguments: ./compressT_LOLS testFile.txt 1
+testFile.txt:
+aaaa aa bbb
+aaa           aa
+
+aaaa    bbbb
+testFile_txt_LOLS.txt: 6a3b9a4b
+
+Arguments: ./compressT_LOLS testFile.txt 3
+testFile.txt:
+aaaa aa bbb
+aaa           aa
+
+aaaa    bbbb
+testFile_txt_LOLS0.txt: 6a3baa
+testFile_txt_LOLS1.txt: 3a
+testFile_txt_LOLS2.txt: 4a4b
+
+==========Test cases for threads including letters and non-alphabetic characters==========
+
+Arguments: ./compressT_LOLS testFile.txt 1
+testFile.txt: aaaaa'''2'2'''''00000llllll4444444l;;;....
+testFile_txt_LOLS.txt: 5a7l
+
+Arguments: ./compressT_LOLS testFile.txt 2
+testFile.txt: aaaaa'''2mmm&&^^--====;;;///```'2'''''00000llllll4444444l;;;....qqqq???kkkkkkkk
+testFile_txt_LOLS0.txt: 5a3m
+testFile_txt_LOLS1.txt: 7l4q8k
+
+Arguments: ./compressT_LOLS testFile.txt 1
+testFile.txt:......>>>>>aaaa,,pppp..kleeeeerrrrrr>>>>.>>
+testFile_txt_LOLS.txt: 4a4pkl5e6r
+
+==========Random input thread test cases==========
+
+Arguments:./compressT_LOLS testFile.txt 1
+testFile.txt: llllsooo'dd????'432;  2k;lkk    kkkl;2;l' ;l ';sdkdsak
+testFile_txt_LOLS.txt: 4ls3oddkl5k3lsdkdsak
+
+Arguments:./compressT_LOLS testFile.txt 2
+testFile.txt: llllsooo'dd????'432;  2k;lkk    kkkl;2;l' ;l ';sdkdsakkkkllllllllmm  mmmmmm ooooo .>??":'bbmmmm--==;l   ....  /
+testFile_txt_LOLS0.txt: 4ls3oddkl5k3lsdkdsa3k
+testFile_txt_LOLS1.txt: k8l8m5obb4ml
+
+Arguments: ./compressT_LOLS testFile.txt 3
+testFile.txt: llllsooo'dd????'432;  2k;lkk    kkkl;2;l' ;l ';sdkdsakkkkllllllllmm  mmmmmm ooooo .>??":'bbmmmm--==;l   ....  /
+testFile_txt_LOLS0.txt: 4ls3oddkl5kl
+testFile_txt_LOLS1.txt: llsdkdsa4k8l7m
+testFile_txt_LOLS2.txt: m5obb4ml
+
+==========Error test cases for threads==========
+
+Arguments: ./compressT_LOLS testFile.xyz -15
+Error output: Cannot have negative number of threads!
+
+File Error: If .txt file is null and could not open
+Error output: Could not open the file
+
+Arguments: ./compressT_LOLS testFile.txt 3 extra
+Error output: Invalid number of arguments!
+
+Thread Error: If worker thread is not created
+Error output: Worker thred[thread#] not created!
+
+Thread Error: If number of worker threads is greater than number of characters
+Error output: Invalid number of threads!
+
+Thread Error: If thread has not joined
+Error output: Thread[thread#] has not joined!
+
+==========Error test cases for processes==========
+
+Process Error: If worker process is not created
+Error output: Worker process[process#] couldn't be created.
